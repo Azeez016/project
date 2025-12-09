@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sunrise Academy</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; scroll-behavior: smooth; }
+body { font-family: 'Roboto', sans-serif; line-height:1.6; color:#333; background:#f4f4f9; }
+a { text-decoration: none; color: inherit; }
+
+header { position: sticky; top:0; background:#fff; padding:15px 40px; display:flex; justify-content:space-between; align-items:center; box-shadow:0 2px 10px rgba(0,0,0,0.1); z-index:1000; }
+.logo { display:flex; align-items:center; gap:10px; font-size:26px; font-weight:700; color:#2c3e50; }
+nav ul { list-style:none; display:flex; gap:25px; }
+nav ul li a { font-weight:500; transition: color 0.3s; }
+nav ul li a.active { color:#3498db; }
+nav ul li a:hover { color:#3498db; }
+
+.hero { display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; height:90vh; background:linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url('https://images.unsplash.com/photo-1571260899304-425eee4c7efc?auto=format&fit=crop&w=1350&q=80') center/cover no-repeat; color:#fff; padding:0 20px; }
+.hero h1 { font-size:3rem; margin-bottom:20px; opacity:0; transform: translateY(-20px); animation:fadeInUp 1s forwards 0.3s; }
+.hero p { font-size:1.2rem; margin-bottom:20px; opacity:0; transform: translateY(-20px); animation:fadeInUp 1s forwards 0.6s; }
+.hero .contact-info { margin-bottom:30px; font-size:1rem; opacity:0; transform: translateY(-20px); animation:fadeInUp 1s forwards 0.9s; }
+.hero button { padding:15px 35px; background:#3498db; border:none; color:#fff; font-size:1rem; border-radius:5px; cursor:pointer; transition: background 0.3s; opacity:0; transform: translateY(-20px); animation:fadeInUp 1s forwards 1.2s; }
+.hero button:hover { background:#2980b9; }
+
+@keyframes fadeInUp { to { opacity:1; transform: translateY(0); } }
+
+section { padding:80px 40px; max-width:1200px; margin:0 auto; }
+
+#about, #courses, #teachers, #gallery, #statistics, #testimonials, #contact { opacity:0; transform:translateY(20px); transition: all 0.8s; }
+
+h2 { font-size:2.5rem; margin-bottom:30px; color:#2c3e50; text-align:center; }
+
+.course-grid, .teacher-grid, .gallery-slider, .statistics-grid { display:grid; gap:25px; }
+.course-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+.course-card, .teacher-card, .stat-card { background:#fff; padding:25px; border-radius:15px; box-shadow:0 4px 15px rgba(0,0,0,0.1); transition: transform 0.3s, box-shadow 0.3s; }
+.course-card:hover, .teacher-card:hover { transform:translateY(-10px); box-shadow:0 8px 20px rgba(0,0,0,0.2); }
+
+.teacher-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); text-align:center; }
+.teacher-card img { width:150px; height:150px; border-radius:50%; object-fit:cover; margin-bottom:15px; }
+
+.gallery-slider { display:flex; overflow:hidden; gap:15px; scroll-behavior:smooth; grid-template-columns:none; }
+.slide { min-width:250px; width:auto; height:auto; flex-shrink:0; border-radius:15px; transition: transform 0.3s; }
+.slide img { width:100%; border-radius:15px; }
+
+.statistics-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); text-align:center; }
+.stat-card { padding:20px; font-size:1.2rem; font-weight:500; color:#3498db; }
+
+#testimonials { background:#3498db; color:#fff; text-align:center; padding:80px 40px; position:relative; }
+.testimonial { max-width:700px; margin:20px auto; font-style:italic; font-size:1.1rem; display:none; }
+.testimonial.active { display:block; }
+
+#contact { text-align:center; }
+.contact-form { max-width:600px; margin:0 auto; display:flex; flex-direction:column; gap:25px; }
+.form-group { position:relative; }
+.form-group input, .form-group textarea {
+  width:100%; padding:15px 15px 15px 10px; border:1px solid #ccc; border-radius:8px; font-size:1rem; outline:none; background:#fff; transition: border 0.3s, box-shadow 0.3s;
+}
+.form-group input:focus, .form-group textarea:focus { border-color:#3498db; box-shadow:0 4px 10px rgba(52,152,219,0.3); }
+.form-group label { position:absolute; left:10px; top:50%; transform:translateY(-50%); color:#aaa; pointer-events:none; transition:0.3s; }
+.form-group input:focus + label,
+.form-group input:not(:placeholder-shown) + label,
+.form-group textarea:focus + label,
+.form-group textarea:not(:placeholder-shown) + label { top:-10px; font-size:0.85rem; color:#3498db; }
+
+.contact-form button { padding:15px; background:#3498db; color:#fff; border:none; border-radius:8px; cursor:pointer; font-size:1rem; transition: background 0.3s; }
+.contact-form button:hover { background:#2980b9; }
+.contact-details { margin-top:25px; font-size:1.1rem; }
+
+footer { background:#2c3e50; color:#fff; text-align:center; padding:25px; font-size:0.95rem; }
+
+#back-to-top { position:fixed; bottom:40px; right:40px; background:#3498db; color:#fff; padding:12px 15px; border-radius:50%; cursor:pointer; display:none; font-size:18px; }
+
+@media(max-width:768px){ header { flex-direction: column; gap:15px; } }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    Sunrise Academy
+  </div>
+  <nav>
+    <ul>
+      <li><a href="#about" class="nav-link">About</a></li>
+      <li><a href="#courses" class="nav-link">Courses</a></li>
+      <li><a href="#teachers" class="nav-link">Teachers</a></li>
+      <li><a href="#gallery" class="nav-link">Gallery</a></li>
+      <li><a href="#statistics" class="nav-link">Statistics</a></li>
+      <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero">
+<h1>Welcome to Sunrise Academy</h1>
+<p>Educating the Future Leaders with Care and Excellence</p>
+<div class="contact-info">09169242642 | info@sunriseacademy.com | www.sunriseacademy.com</div>
+<button onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Contact Us</button>
+</section>
+
+<section id="about">
+<h2>About Us</h2>
+<p>Sunrise Academy provides quality education and holistic development. We foster curiosity, creativity, and critical thinking. With modern classrooms, labs, and recreational facilities, students learn in a safe and inspiring environment. Our dedicated teachers ensure every student thrives academically and socially.</p>
+</section>
+
+<section id="courses">
+<h2>Our Courses</h2>
+<div class="course-grid">
+<div class="course-card"><strong>Mathematics:</strong> Analytical and problem-solving skills development.</div>
+<div class="course-card"><strong>Science:</strong> Explore biology, chemistry, and physics with experiments.</div>
+<div class="course-card"><strong>English:</strong> Reading, writing, and communication skills enhancement.</div>
+<div class="course-card"><strong>Computer Studies:</strong> Coding, digital literacy, and creative computing.</div>
+<div class="course-card"><strong>Art & Creativity:</strong> Drawing, painting, and design projects.</div>
+<div class="course-card"><strong>Physical Education:</strong> Teamwork, fitness, and healthy living.</div>
+</div>
+</section>
+
+<section id="teachers">
+<h2>Meet Our Teachers</h2>
+<div class="teacher-grid">
+<div class="teacher-card"><img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Mr. John Doe"><h3>Mr. John Doe</h3><p>Mathematics</p></div>
+<div class="teacher-card"><img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Mrs. Jane Smith"><h3>Mrs. Jane Smith</h3><p>Science</p></div>
+<div class="teacher-card"><img src="https://randomuser.me/api/portraits/men/65.jpg" alt="Mr. Mark Lee"><h3>Mr. Mark Lee</h3><p>English</p></div>
+<div class="teacher-card"><img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Ms. Emily Brown"><h3>Ms. Emily Brown</h3><p>Computer Studies</p></div>
+<div class="teacher-card"><img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Mr. Alex Green"><h3>Mr. Alex Green</h3><p>Physical Education</p></div>
+<div class="teacher-card"><img src="https://randomuser.me/api/portraits/women/33.jpg" alt="Ms. Laura White"><h3>Ms. Laura White</h3><p>Art & Creativity</p></div>
+</div>
+</section>
+
+<section id="gallery">
+<h2>Student Activities</h2>
+<div class="gallery-slider">
+  <div class="slide"><img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f" alt="Students reading"></div>
+  <div class="slide"><img src="https://images.unsplash.com/photo-1581090700227-5e04f98aa1c4" alt="Students in lab"></div>
+  <div class="slide"><img src="https://images.unsplash.com/photo-1596496056462-f46a42fae78a" alt="Students playing sports"></div>
+  <div class="slide"><img src="https://images.unsplash.com/photo-1600165731107-3780ce4b9d18" alt="Art class"></div>
+</div>
+</section>
+
+<section id="statistics">
+<h2>Our Achievements</h2>
+<div class="statistics-grid">
+<div class="stat-card"><span class="count" data-target="1200">0</span> Students</div>
+<div class="stat-card"><span class="count" data-target="45">0</span> Teachers</div>
+<div class="stat-card"><span class="count" data-target="12">0</span> Courses</div>
+<div class="stat-card"><span class="count" data-target="25">0</span> Awards</div>
+</div>
+</section>
+
+<section id="testimonials">
+<h2>What Our Students Say</h2>
+<div class="testimonial active">Sunrise Academy transformed my learning experience. The teachers are amazing and supportive.</div>
+<div class="testimonial">The modern facilities and interactive lessons make learning fun and effective.</div>
+<div class="testimonial">I feel motivated and confident thanks to the encouragement from all teachers and staff.</div>
+<div class="testimonial">A school that values both academic excellence and personal growth.</div>
+</section>
+
+<section id="contact">
+<h2>Contact Us</h2>
+<form class="contact-form" onsubmit="submitForm(event)">
+  <div class="form-group">
+    <input type="text" name="name" placeholder=" " required>
+    <label>Your Name</label>
+  </div>
+  <div class="form-group">
+    <input type="email" name="email" placeholder=" " required>
+    <label>Your Email</label>
+  </div>
+  <div class="form-group">
+    <textarea name="message" rows="5" placeholder=" " required></textarea>
+    <label>Your Message</label>
+  </div>
+  <button type="submit">Send Message</button>
+  <p id="form-success" style="color:green; display:none; margin-top:10px;">Thank you! We will get back to you soon.</p>
+</form>
+<div class="contact-details">09169242642 | info@sunriseacademy.com | www.sunriseacademy.com</div>
+</section>
+
+<footer>
+&copy; 2025 Sunrise Academy | All Rights Reserved <br>
+09169242642 | info@sunriseacademy.com | www.sunriseacademy.com
+</footer>
+
+<div id="back-to-top" onclick="window.scrollTo({top:0, behavior:'smooth'})">&#8679;</div>
+
+<script>
+// Scroll reveal
+const sections = document.querySelectorAll('section');
+const observer = new IntersectionObserver(entries => {
+entries.forEach(entry => {
+if(entry.isIntersecting){
+entry.target.style.opacity = 1;
+entry.target.style.transform = 'translateY(0)';
+}
+});
+},{threshold:0.2});
+sections.forEach(sec => observer.observe(sec));
+
+// Navbar active highlight
+const navLinks = document.querySelectorAll('.nav-link');
+window.addEventListener('scroll', () => {
+let current = '';
+sections.forEach(sec => {
+const sectionTop = sec.offsetTop - 70;
+if(scrollY >= sectionTop) current = sec.getAttribute('id');
+});
+navLinks.forEach(link => link.classList.remove('active'));
+document.querySelector('.nav-link[href="#'+current+'"]')?.classList.add('active');
+
+// Back to top button
+document.getElementById('back-to-top').style.display = scrollY > 300 ? 'block' : 'none';
+});
+
+// Testimonials carousel
+let testimonialIndex = 0;
+const testimonials = document.querySelectorAll('.testimonial');
+setInterval(() => {
+testimonials[testimonialIndex].classList.remove('active');
+testimonialIndex = (testimonialIndex + 1) % testimonials.length;
+testimonials[testimonialIndex].classList.add('active');
+},5000);
+
+// Statistics counter
+const counters = document.querySelectorAll('.count');
+counters.forEach(counter => {
+counter.innerText = '0';
+const updateCount = () => {
+const target = +counter.getAttribute('data-target');
+const count = +counter.innerText;
+const increment = target / 200;
+if(count < target){
+counter.innerText = Math.ceil(count + increment);
+setTimeout(updateCount, 15);
+}else{
+counter.innerText = target;
+}
+};
+observer.observe(counter);
+updateCount();
+});
+
+// Student Activity Slider
+const slider = document.querySelector('.gallery-slider');
+let scrollAmount = 0;
+setInterval(() => {
+if(slider.scrollWidth - slider.clientWidth <= scrollAmount){
+  scrollAmount = 0;
+}else{
+  scrollAmount += 260;
+}
+slider.scrollTo({ left: scrollAmount, behavior:'smooth' });
+},3000);
+
+// Contact form
+function submitForm(e){
+  e.preventDefault();
+  const successMsg = document.getElementById('form-success');
+  successMsg.style.display = 'block';
+  setTimeout(()=>{ successMsg.style.display = 'none'; }, 4000);
+  e.target.reset();
+}
+</script>
+
+</body>
+</html>
